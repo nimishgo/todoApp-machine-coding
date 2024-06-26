@@ -1,32 +1,47 @@
-import { useState } from "react";
+import { useReducer } from "react";
 import AddForm from "./components/AddForm";
 import ShowList from "./components/ShowList";
-
+import taskReducer, { initialState } from "./utils/reducers";
 function App() {
-  const [list, setList] = useState([]);
+  // const [list, setList] = useState([]);
+  const [list, dispatch] = useReducer(taskReducer, initialState);
   const addTask = (msg) => {
-    const task = {
-      id: list.length + 1 + msg,
-      task: msg,
-      done: false,
-    };
-    setList((prev) => [...prev, task]);
+    // const task = {
+    //   id: list.length + 1 + msg,
+    //   task: msg,
+    //   done: false,
+    // };
+    // setList((prev) => [...prev, task]);
+    console.log(list);
+    dispatch({
+      type: "add",
+      id: list.length + msg,
+      text: msg,
+    });
   };
 
   const removeTask = (id) => {
-    setList(list.filter((x) => id !== x.id));
+    // setList(list.filter((x) => id !== x.id));
+    dispatch({
+      type: "remove",
+      id: id,
+    });
   };
 
   const modifyTask = (task) => {
-    setList(
-      list.map((x) => {
-        if (x.id === task.id) {
-          return task;
-        } else {
-          return x;
-        }
-      })
-    );
+    // setList(
+    //   list.map((x) => {
+    //     if (x.id === task.id) {
+    //       return task;
+    //     } else {
+    //       return x;
+    //     }
+    //   })
+    // );
+    dispatch({
+      type: "modify",
+      task: task,
+    });
   };
   return (
     <>

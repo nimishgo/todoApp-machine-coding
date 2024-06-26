@@ -5,7 +5,6 @@ const Task = ({ x, modifyTask, removeTask }) => {
   const [text, setText] = useState(x.task);
 
   const handleCheckboxChange = () => {
-    console.log("Hi ");
     modifyTask({ ...x, done: !x.done });
   };
 
@@ -16,10 +15,13 @@ const Task = ({ x, modifyTask, removeTask }) => {
   };
 
   return (
-    <li key={x.id} className="flex gap-4 items-center">
+    <li
+      key={x.id}
+      className="flex gap-4 items-center bg-sky-200 p-2 rounded-lg"
+    >
       <input
         type="checkbox"
-        className="w-4 h-4"
+        className="w-8 h-8"
         checked={x.done}
         onChange={handleCheckboxChange}
       />
@@ -30,7 +32,7 @@ const Task = ({ x, modifyTask, removeTask }) => {
           <input
             type="text"
             value={text}
-            className="px-2 border-2 border-black border-solid h-5"
+            className="px-2 border-2 border-black border-solid h-10 rounded-lg mx-4"
             onChange={(e) => setText(e.target.value)}
           />
           <button type="submit" className="button_class">

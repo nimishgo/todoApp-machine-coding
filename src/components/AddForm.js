@@ -11,7 +11,7 @@ const AddForm = ({ addTask }) => {
       <input
         type="text"
         value={msg}
-        className="px-2 border-2 border-black border-solid h-10"
+        className="px-2 border-2 border-black border-solid h-10 rounded-lg"
         onChange={taskMsg}
       />
       <button
