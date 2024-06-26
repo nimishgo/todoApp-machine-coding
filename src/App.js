@@ -6,20 +6,21 @@ import { listDispatch, listStore } from "./utils/itemStore";
 function App() {
   // const [list, setList] = useState([]);
   const [list, dispatch] = useReducer(taskReducer, initialState);
-  const addTask = (msg) => {
-    // const task = {
-    //   id: list.length + 1 + msg,
-    //   task: msg,
-    //   done: false,
-    // };
-    // setList((prev) => [...prev, task]);
-    console.log(list);
-    dispatch({
-      type: "add",
-      id: list.length + msg,
-      text: msg,
-    });
-  };
+  console.log(list);
+  // const addTask = (msg) => {
+  //   // const task = {
+  //   //   id: list.length + 1 + msg,
+  //   //   task: msg,
+  //   //   done: false,
+  //   // };
+  //   // setList((prev) => [...prev, task]);
+  //   console.log(list);
+  //   dispatch({
+  //     type: "add",
+  //     id: list.length + msg,
+  //     text: msg,
+  //   });
+  // };
 
   const removeTask = (id) => {
     // setList(list.filter((x) => id !== x.id));
@@ -50,12 +51,8 @@ function App() {
         <listDispatch.Provider value={dispatch}>
           <div className="h-[50vh] flex flex-col justify-center items-center ">
             <h1>To Do list</h1>
-            <AddForm addTask={addTask} />
-            <ShowList
-              list={list}
-              removeTask={removeTask}
-              modifyTask={modifyTask}
-            />
+            <AddForm />
+            <ShowList />
           </div>
         </listDispatch.Provider>
       </listStore.Provider>

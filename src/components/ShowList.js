@@ -1,16 +1,14 @@
+import { useContext } from "react";
+import { listStore } from "../utils/itemStore";
 import Task from "./Task";
 
-const ShowList = ({ list, removeTask, modifyTask }) => {
+const ShowList = () => {
+  const list = useContext(listStore);
   return (
     <>
       <ul>
         {list.map((x) => (
-          <Task
-            x={x}
-            key={x.id}
-            removeTask={removeTask}
-            modifyTask={modifyTask}
-          />
+          <Task key={x.id} x={x} />
         ))}
       </ul>
     </>

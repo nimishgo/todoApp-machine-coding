@@ -1,6 +1,8 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { listDispatch } from "../utils/itemStore";
 
-const AddForm = ({ addTask }) => {
+const AddForm = () => {
+  const dispatch = useContext(listDispatch);
   const [msg, setmsg] = useState("");
   const taskMsg = (e) => {
     console.log(e.target.value);
@@ -17,7 +19,11 @@ const AddForm = ({ addTask }) => {
       <button
         className="m-4 bg-sky-500 text-white font-bold p-2 rounded-lg"
         onClick={() => {
-          addTask(msg);
+          dispatch({
+            type: "add",
+            id: idx++,
+            text: msg,
+          });
           setmsg("");
         }}
       >
@@ -26,4 +32,5 @@ const AddForm = ({ addTask }) => {
     </form>
   );
 };
+let idx = 0;
 export default AddForm;

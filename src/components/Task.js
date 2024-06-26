@@ -1,24 +1,36 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { listDispatch } from "../utils/itemStore";
 
-const Task = ({ x, modifyTask, removeTask }) => {
+const Task = ({ x }) => {
   const [showEdit, setEdit] = useState(false);
   const [text, setText] = useState(x.task);
+  const dispatch = useContext(listDispatch);
 
   const handleCheckboxChange = () => {
-    modifyTask({ ...x, done: !x.done });
+    dispatch({
+      type: "modify",
+      task: { ...x, done: !x.done },
+    });
   };
 
   const handleEditSubmit = (e) => {
     e.preventDefault();
     setEdit(false);
-    modifyTask({ id: x.id, task: text, done: x.done });
+    dispatch({
+      type: "modify",
+      task: { id: x.id, task: text, done: x.done },
+    });
+  };
+
+  const handleDelete = () => {
+    dispatch({
+      type: "remove",
+      id: x.id,
+    });
   };
 
   return (
-    <li
-      key={x.id}
-      className="flex gap-4 items-center bg-sky-200 p-2 rounded-lg"
-    >
+    <li className="flex gap-4 items-center bg-sky-200 p-2 rounded-lg">
       <input
         type="checkbox"
         className="w-8 h-8"
@@ -45,7 +57,7 @@ const Task = ({ x, modifyTask, removeTask }) => {
           Edit
         </button>
       )}
-      <button className="button_class" onClick={() => removeTask(x.id)}>
+      <button className="button_class" onClick={handleDelete}>
         Delete
       </button>
     </li>
