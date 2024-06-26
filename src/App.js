@@ -1,24 +1,41 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import AddForm from "./components/AddForm";
+import ShowList from "./components/ShowList";
 
 function App() {
+  const [list, setList] = useState([]);
+  const addTask = (msg) => {
+    const task = {
+      id: list.length + 1 + msg,
+      task: msg,
+      done: false,
+    };
+    setList((prev) => [...prev, task]);
+  };
+
+  const removeTask = (id) => {
+    setList(list.filter((x) => id !== x.id));
+  };
+
+  const modifyTask = (task) => {
+    setList(
+      list.map((x) => {
+        if (x.id === task.id) {
+          return task;
+        } else {
+          return x;
+        }
+      })
+    );
+  };
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <div className="h-[50vh] flex flex-col justify-center items-center ">
+        <h1>To Do list</h1>
+        <AddForm addTask={addTask} />
+        <ShowList list={list} removeTask={removeTask} modifyTask={modifyTask} />
+      </div>
+    </>
   );
 }
 
